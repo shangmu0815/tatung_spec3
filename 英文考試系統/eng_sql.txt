@@ -1,0 +1,35 @@
+
+--------------------------------------
+SELECT     a.H_TEST AS ¦Ò¸Õ¦WºÙ, c.H_TESTNAME, CONVERT(varchar(12), a.H_DATE, 111) AS ¦Ò¸Õ¤é´Á, c.H_SUBJNAME AS ¬ì¥Ø1¦WºÙ, a.H_SCORE1 AS ¬ì¥Ø1¦¨ÁZ,
+                       a.H_SUBJECT2 AS ¬ì¥Ø2¦WºÙ, a.H_SCORE2 AS ¬ì¥Ø2¦¨ÁZ, a.H_AVERAGE AS ¥­§¡¦¨ÁZ
+FROM         dbo.HBT_TESTRECORD AS a INNER JOIN
+                      dbo.HBV_PERSON_1 AS b ON a.H_IDNO = b.H_IDNO INNER JOIN
+                      dbo.HBT_TESTCODE AS c ON a.H_TEST = c.H_TEST AND a.H_SUBJECT1 = c.H_SUBJECT
+WHERE     (a.H_IDNO = 'A120199009')
+
+
+
+----------------------------------------------------
+
+SELECT     t.H_TEST, t.H_TESTNAME, t.EXPR1, t.H_SUBJNAME, t.H_SCORE1, p.H_SUBJNAME AS EXPR2, t.H_SCORE2, t.H_AVERAGE
+FROM         (SELECT     a.H_IDNO, a.H_TEST, c.H_TESTNAME, CONVERT(varchar(12), a.H_DATE, 111) AS EXPR1, c.H_SUBJNAME, a.H_SCORE1, a.H_SUBJECT2, 
+                                              a.H_SCORE2, a.H_AVERAGE
+                       FROM          dbo.HBT_TESTRECORD AS a INNER JOIN
+                                              dbo.HBV_PERSON_1 AS b ON a.H_IDNO = b.H_IDNO INNER JOIN
+                                              dbo.HBT_TESTCODE AS c ON a.H_TEST = c.H_TEST AND a.H_SUBJECT1 = c.H_SUBJECT) AS t INNER JOIN
+                      dbo.HBT_TESTCODE AS p ON t.H_TEST = p.H_TEST AND t.H_SUBJECT2 = p.H_SUBJECT
+WHERE     (t.H_IDNO = 'A122395527')
+
+A121276185
+A122395527
+
+
+SELECT     t.H_IDNO, t.H_TEST, t.H_TESTNAME AS ¦Ò¸Õ¦WºÙ, t.TESTDATE AS ¦Ò¸Õ¤é´Á, t.H_SUBJNAME AS ¬ì¥Ø1¦WºÙ, t.H_SCORE1 AS ¬ì¥Ø1¦¨ÁZ, 
+                      p.H_SUBJNAME AS ¬ì¥Ø2¦WºÙ, t.H_SCORE2 AS ¬ì¥Ø2¦¨ÁZ, t.H_AVERAGE AS ¥­§¡¦¨ÁZ
+FROM         (SELECT     a.H_IDNO, a.H_TEST, c.H_TESTNAME, CONVERT(varchar(12), a.H_DATE, 111) AS TESTDATE, c.H_SUBJNAME, a.H_SCORE1, 
+                                              a.H_SUBJECT2, a.H_SCORE2, a.H_AVERAGE
+                       FROM          dbo.HBT_TESTRECORD AS a INNER JOIN
+                                              dbo.HBV_PERSON_1 AS b ON a.H_IDNO = b.H_IDNO INNER JOIN
+                                              dbo.HBT_TESTCODE AS c ON a.H_TEST = c.H_TEST AND a.H_SUBJECT1 = c.H_SUBJECT) AS t INNER JOIN
+                      dbo.HBT_TESTCODE AS p ON t.H_TEST = p.H_TEST AND t.H_SUBJECT2 = p.H_SUBJECT
+ORDER BY t.H_IDNO
